@@ -1,9 +1,7 @@
 FROM debian:bullseye
 
 # Install nginx and openssl
-RUN apt-get update && apt-get install -y \
-    nginx \
-    openssl \
+RUN apt-get update && apt-get install nginx -y && apt-get install openssl -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Create directory for SSL certificates

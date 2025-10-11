@@ -1,0 +1,3 @@
+# Secrets and sensitive data
+secrets/
+srcs/.env

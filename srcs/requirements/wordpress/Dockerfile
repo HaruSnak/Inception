@@ -22,20 +22,15 @@ RUN wget https://github.com/wp-cli/wp-cli/releases/download/v2.5.0/wp-cli-2.5.0.
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-# Create wordpress directory
-RUN mkdir -p /var/www/html/wordpress \
-    && chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
-
 # Copy configuration files
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY tools/entrypoint.sh /entrypoint.sh
 
-# Make entrypoint executable
-RUN chmod +x /entrypoint.sh
-
-# Create run directory for php-fpm
-RUN mkdir -p /run/php
+# Create directories, set permissions and make entrypoint executable
+RUN mkdir -p /var/www/html/wordpress /run/php && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html && \
+    chmod +x /entrypoint.sh
 
 # Expose port 9000
 EXPOSE 9000
